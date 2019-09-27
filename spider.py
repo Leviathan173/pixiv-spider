@@ -29,9 +29,7 @@ def spider(index, r18, limit, times):
 
         # 处理网站数据，获取喜欢的人数和tag
         iine = soup.select(".dROFhg > dd:nth-child(2)")
-        print(iine)
-        # .sc-LzNMr > li:nth-child(1) > dl:nth-child(1) > dd:nth-child(2)
-        # .dROFhg > dd: nth - child(2)
+    print(iine)
         iineNum = int(iine.get_text())
         print('iine={}'.format(iineNum))
         tag = soup.select("._1LEXQ_3 > li > span > a")
