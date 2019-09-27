@@ -47,3 +47,10 @@ def get_allindex():
             index.append(line)
     f.close()
     return index
+
+
+def write_left(index):
+    with open('./init.cfg', 'w') as f:
+        for i in range(len(index)):
+            f.write(str(index[i]) + '\n')
+    f.close()

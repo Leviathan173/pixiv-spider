@@ -4,11 +4,11 @@ import requests
 import os
 from bs4 import BeautifulSoup
 from dl_img import *
-from db_util import *
 from find_index import *
 
 
 def spider(index, r18, limit, times):
+    left_index = []
     while times > 0:
         print('进入下一页面，剩余任务{}'.format(times))
         indexs = get_allindex()
@@ -19,7 +19,12 @@ def spider(index, r18, limit, times):
 
         # 获取网站数据
         url = "https://www.pixiv.net/artworks/{}".format(index)
-        res = requests.get(url)
+        try:
+            res = requests.get(url)
+        except Exception as e:
+            print('超时...')
+            print('跳过，进入下一任务...')
+            continue
         soup = BeautifulSoup(res.text, "html.parser")
 
         # 处理网站数据，获取喜欢的人数和tag
@@ -51,3 +56,5 @@ def spider(index, r18, limit, times):
             times -= 1
         else:
             indexs.remove(index)
+        left_index = indexs.copy()
+

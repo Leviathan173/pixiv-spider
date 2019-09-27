@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='涩图获取器 v0.01 by Leviathan
 parser.add_argument('-i', '--index', help='需要爬取的页面的序号', type=int)
 parser.add_argument('-l', '--limit', help='最小喜欢的数值，只会爬取超过这个数值的涩图', type=int)
 parser.add_argument('-r18', help='是否只抓取涩图，yes or no')
-parser.add_argument('-t', '--times', help='要爬取多少张图片')
+parser.add_argument('-t', '--times', help='要爬取多少张图片', type=int)
 # TODO 添加数据库选项支持
 # 目前不知道怎么做匿名数据库支持，
 # parser.add_argument('-db', help='是否使用数据库, yes or no')
@@ -54,9 +54,11 @@ else:
 
 
 def main():
+    print('载入中...')
+    ind = index
     while True:
         spider.spider(index, r18, limit, times)
-        index = get_index()
+        ind = get_index()
 
 
 if __name__ == '__main__':
