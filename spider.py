@@ -18,18 +18,22 @@ def spider(index, r18, limit, times):
         # tags_r18 = ['\u5973\u306e\u5b50', '\u6c34\u7740', '\u306a\u306b\u3053\u308c\u304b\u308f\u3044\u3044', 'R-18']
 
         # 获取网站数据
-        url = "https://www.pixiv.net/artworks/{}".format(index)
+        # url = "https://www.pixiv.net/artworks/{}".format(index)
+        url = "https://www.baidu.com"
         try:
+            code = [404, 500, 503]
             res = requests.get(url)
+            if res.status_code in code:
+                break
         except Exception as e:
             print('超时...')
             print('跳过，进入下一任务...')
             continue
         soup = BeautifulSoup(res.text, "html.parser")
-
+        
         # 处理网站数据，获取喜欢的人数和tag
         iine = soup.select(".dROFhg > dd:nth-child(2)")
-    print(iine)
+        print(iine.get_text)
         iineNum = int(iine.get_text())
         print('iine={}'.format(iineNum))
         tag = soup.select("._1LEXQ_3 > li > span > a")
