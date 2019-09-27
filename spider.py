@@ -57,4 +57,4 @@ def spider(index, r18, limit, times):
         else:
             indexs.remove(index)
         left_index = indexs.copy()
-
+    write_left(left_index)
