@@ -10,6 +10,7 @@ from find_index import *
 
 def spider(index, r18, limit, times):
     while times > 0:
+        print('进入下一页面，剩余任务{}'.format(times))
         indexs = get_allindex()
         if len(indexs) == 0:
             create_index(index)
