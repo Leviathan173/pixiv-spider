@@ -1,3 +1,4 @@
+# encoding:utf-8
 import mysql.connector
 import re
 

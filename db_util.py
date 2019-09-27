@@ -1,3 +1,4 @@
+# encoding:utf-8
 import mysql.connector
 import time
 from db_init import get_conn
