@@ -29,7 +29,8 @@ def get_index():
 
 def create_index(start=0):
     list_index = []
-    for i in range(start, int(start) + 10000):
+    print(type(start))
+    for i in range(start, start + 10000):
         list_index.append(i)
     with open('./init.cfg', 'w') as f:
         for i in range(len(list_index)):

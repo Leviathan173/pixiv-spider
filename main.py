@@ -19,7 +19,7 @@ DEFAULT_LIMIT = 300
 args = parser.parse_args()
 print(args)
 if os.path.exists('init.cfg'):
-    index = get_index()
+    index = int(get_index())
 elif args.index is not None:
     index = args.index
     create_index(index)
