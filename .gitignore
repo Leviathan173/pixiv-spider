@@ -11,7 +11,7 @@ TODO list
 find_index.py
 dl_img.py
 *.txt
-img
+img/
 # C extensions
 *.so
 
