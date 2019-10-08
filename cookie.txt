@@ -1,0 +1,5 @@
+#LWP-Cookies-2.0
+Set-Cookie3: PHPSESSID=7d6744c2b08c384dc80c395dac84a367; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2019-10-03 06:53:37Z"; HttpOnly=None; version=0
+Set-Cookie3: p_ab_d_id=1025110401; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2024-10-01 05:53:37Z"; version=0
+Set-Cookie3: p_ab_id=7; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2024-10-01 05:53:37Z"; version=0
+Set-Cookie3: p_ab_id_2=7; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2024-10-01 05:53:37Z"; version=0
