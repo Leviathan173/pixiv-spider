@@ -80,6 +80,7 @@ def spider(index, r18, limit):
 
         try:
             code = [404, 500, 503]
+            requests.packages.urllib3.disable_warnings()
             res = requests.get(url, verify=False, timeout=(10, 30))
             if res.status_code in code:
                 print('页面不存在...')
