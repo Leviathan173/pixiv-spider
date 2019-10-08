@@ -53,6 +53,7 @@ def get_img_url(data):
     # print(img.split(':"')[1].split('"')[0].replace('\\', ''))
     return img[0].split(':"')[1].split('"')[0].replace('\\', '')
 
+
 def get_tags(data):
     """
     获取图片tag
@@ -66,13 +67,16 @@ def get_tags(data):
     return tag
 
 
-def dl(url, name, path='./img/'):
+def dl(url, name, ref, path='./img/'):
     """
     下载图片
     :param url: 图片地址
     :param name: 图片名字
     :param path: 本地存放路径
     """
+    header = {
+        'referer': ref,
+    }
     if not os.path.exists(path):
         print('创建图片保存目录')
         os.mkdir(path)
@@ -80,7 +84,7 @@ def dl(url, name, path='./img/'):
         print('目录存在...')
     full_path = path + '{}.jpg'.format(name)
     try:
-        req = requests.get(url)
+        req = requests.get(url, headers=header)
         print('获取文件成功...')
     except:
         print('获取文件失败...')
@@ -89,6 +93,7 @@ def dl(url, name, path='./img/'):
     with open(full_path, 'wb') as f:
         f.write(req.content)
     f.close()
+    return 0
 
 
 '''自动化模块
@@ -115,16 +120,12 @@ def create_index(start=0):
     创建进度
     :param start: 开始网页序号
     """
-    list_index = []
-    print(type(start))
-    for i in range(start, start + increase_num):
-        list_index.append(i)
     with open('./init.cfg', 'w') as f:
-        for i in range(len(list_index)):
-            f.write(str(list_index[i]) + '\n')
+        f.write(str(start) + '\n')
     f.close()
 
 
+''' 弃用
 def get_allindex():
     """
     获取当前所有进度
@@ -139,14 +140,14 @@ def get_allindex():
             index.append(line)
     f.close()
     return index
+'''
 
 
-def write_left(index):
+def write_index(index):
     """
-    写入剩余进度
-    :param index: 剩余进度列表
+    写入进度
+    :param index: 进度页面编号
     """
     with open('./init.cfg', 'w') as f:
-        for i in range(len(index)):
-            f.write(str(index[i]))
+        f.write(str(index)+'\n')
     f.close()
