@@ -1,4 +1,0 @@
-#LWP-Cookies-2.0
-Set-Cookie3: p_ab_d_id=1025110401; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2024-10-01 05:53:37Z"; version=0
-Set-Cookie3: p_ab_id=7; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2024-10-01 05:53:37Z"; version=0
-Set-Cookie3: p_ab_id_2=7; path="/"; domain=".pixiv.net"; path_spec; domain_dot; secure; expires="2024-10-01 05:53:37Z"; version=0
