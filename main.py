@@ -56,9 +56,7 @@ else:
 def main():
     print('载入中...')
     ind = index
-    while True:
-        spider.spider(index, r18, limit, times)
-        ind = get_index()
+    spider.spider(index, r18, limit, times)
 
 
 if __name__ == '__main__':

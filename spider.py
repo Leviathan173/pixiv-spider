@@ -10,7 +10,7 @@ from find_index import *
 def spider(index, r18, limit, times):
     left_index = []
     while times > 0:
-        print('进入下一页面，剩余任务{}'.format(times))
+        print(f'进入下一页面，剩余任务{times}')
         indexs = get_allindex()
         if len(indexs) == 0:
             create_index(index)
@@ -24,6 +24,7 @@ def spider(index, r18, limit, times):
             code = [404, 500, 503]
             res = requests.get(url)
             if res.status_code in code:
+                print('页面不存在...')
                 break
         except Exception as e:
             print('超时...')

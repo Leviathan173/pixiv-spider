@@ -53,5 +53,5 @@ def get_allindex():
 def write_left(index):
     with open('./init.cfg', 'w') as f:
         for i in range(len(index)):
-            f.write(str(index[i]) + '\n')
+            f.write(str(index[i]))
     f.close()

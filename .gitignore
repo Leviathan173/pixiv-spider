@@ -4,6 +4,14 @@ __pycache__/
 *$py.class
 .idea
 init.cfg
+*.jpg
+new_way.py
+test*
+TODO list
+find_index.py
+dl_img.py
+*.txt
+img
 # C extensions
 *.so
 

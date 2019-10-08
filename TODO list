@@ -1,0 +1,16 @@
+util.py
+完善图片下载，添加header
+
+
+spider.py
+修改大部分代码，适应新的结构
+
+
+find_index.py & dl_img.py & db* 现在不使用(整合在util.py中)，删除git仓库中的相应文件
+
+need to test
+是否不需要登录验证(cookie)就可以获取到R18的网页数据
+
+nice to have............
+多线程支持，文件下载一个线程，爬取数据一个线程
+漫画或多幅图片的处理
