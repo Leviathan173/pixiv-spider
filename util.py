@@ -163,24 +163,6 @@ def create_index(start=0):
     f.close()
 
 
-''' 弃用
-def get_allindex():
-    """
-    获取当前所有进度
-    :return: list
-    """
-    index = []
-    with open('mark_file', 'r') as f:
-        while True:
-            line = f.readline()
-            if not line:
-                break
-            index.append(line)
-    f.close()
-    return index
-'''
-
-
 def write_index(index):
     """
     写入进度

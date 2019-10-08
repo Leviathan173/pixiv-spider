@@ -1,5 +1,11 @@
-# pixiv-spider
+
 ## 简单易用！涩图爬虫！
+
+
+## Attention!
+如果你的网络可以直接访问pixiv，那么你可以在spider.py中去掉关闭ssl认证的相关代码
+
+
 ### Usage:
 ```
 usage: main.py [-h] [-i INDEX] [-l LIMIT] [-r18 R18] [-n NUM]
