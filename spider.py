@@ -80,7 +80,7 @@ def spider(index, r18, limit):
 
         try:
             code = [404, 500, 503]
-            res = requests.get(url, verify=False)
+            res = requests.get(url, verify=False, timeout=(10, 30))
             if res.status_code in code:
                 print('页面不存在...')
                 index += 1
@@ -95,9 +95,6 @@ def spider(index, r18, limit):
 
         # 处理数据，获取标签和点赞数
         tags = get_tags(soup.text)
-        for i in tags:
-            print(i)
-            print('end tag')
         iine = get_like_count(soup.text)
         if iine < limit:
             print('点赞数不足要求，跳过...')
@@ -107,17 +104,12 @@ def spider(index, r18, limit):
         # 判断是否R18
         r18_flag = False
         tag_flag = False
-        if 'R-18' in tags:
+        if R18 in tags:
             # TODO R18G内容筛选
             r18_flag = True
 
         # 判断是否存在用户tag
-        user_tags = ['\\u30aa\\u30ea\\u30b8\\u30ca\\u30eb', '\\u9b45\\u60d1\\u306e\\u3075\\u3068\\u3082\\u3082',
-                     '\\u5973\\u306e\\u5b50',
-                     '\\u814b',
-                     '\\u9280\\u9aea\\u30ed\\u30f3\\u30b0', '\\u9b45\\u60d1\\u306e\\u8c37\\u9593']
-        for i in user_tags:
-            print(i)
+        for i in TAGLIB:
             if i in tags:
                 tag_flag = True
 

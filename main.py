@@ -1,24 +1,26 @@
 # encoding:utf-8
 import argparse
 import os
+import time
+
 from util import *
 import spider
 
-parser = argparse.ArgumentParser(description='涩图获取器 v0.01 by Leviathan173')
-parser.add_argument('-i', '--index', help='需要爬取的页面的开始序号', type=int)
-parser.add_argument('-l', '--limit', help='最小喜欢的数值，只会爬取超过这个数值的涩图', type=int)
+parser = argparse.ArgumentParser(description='涩图获取器 v0.1c by Leviathan173')
+parser.add_argument('-i', '--index', help='需要爬取的页面的开始序号，默认77100000', type=int)
+parser.add_argument('-l', '--limit', help='最小被人喜欢的数值，只会爬取超过这个数值的涩图', type=int)
 parser.add_argument('-r18', help='是否只抓取涩图，yes or no')
 parser.add_argument('-n', '--num', help='要爬取多少张图片', type=int)
 # TODO 添加数据库选项支持
 # 目前不知道怎么做匿名数据库支持，
 # parser.add_argument('-db', help='是否使用数据库, yes or no')
 
-DEFAULT_INDEX = 0
-DEFAULT_LIMIT = 300
+DEFAULT_INDEX = 77100000
+DEFAULT_LIMIT = 80
 
 args = parser.parse_args()
 print(args)
-if os.path.exists('init.cfg'):
+if os.path.exists(mark_file):
     index = int(get_index())
 elif args.index is not None:
     index = args.index
@@ -55,6 +57,7 @@ else:
 
 def main():
     print('载入中...')
+    time.sleep(3)
     ind = index
     for i in range(num):
         ind = spider.spider(ind, r18, limit)
