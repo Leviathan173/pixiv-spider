@@ -124,7 +124,8 @@ def dl(url, name, ref, path='./img/'):
     try:
         req = requests.get(url, headers=header, timeout=(10, 30))
         print('获取文件成功...')
-    except:
+    except Exception as e:
+        print(e)
         print('获取文件失败...')
         print(f'准备获取的图片的地址为：{url}')
         return -1
