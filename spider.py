@@ -94,6 +94,8 @@ def spider(index, r18, limit):
                     else:
                         print('下载出错，重试中...')
                         continue
+                index += 1
+                return index
             else:
                 print('不存在所需标签，跳过...')
                 index += 1
