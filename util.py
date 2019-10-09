@@ -122,7 +122,8 @@ def dl(url, name, ref, path='./img/'):
         print('目录存在...')
     full_path = path + '{}.jpg'.format(name)
     try:
-        req = requests.get(url, headers=header, timeout=(10, 30))
+        requests.packages.urllib3.disable_warnings()
+        req = requests.get(url, headers=header, timeout=(10, 30), verify=False)
         print('获取文件成功...')
     except Exception as e:
         print(e)

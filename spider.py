@@ -66,7 +66,7 @@ def spider(index, r18, limit):
                     print('发现符合，正在获取图片链接...')
                     img_url = get_img_url(soup.text)
                     for t in range(RETRY_TIME):
-                        if dl(img_url, hash_name(get_ill_name(soup.text)),url) == 0:
+                        if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
                             print('下载完成...')
                             index += 1
                             write_index(index)
