@@ -41,7 +41,19 @@ TAGLIB = ['\\u30aa\\u30ea\\u30b8\\u30ca\\u30eb',  # オリジナル
           '\\u304a\\u3063\\u3071\\u3044',  # おっぱい
           # TODO 可能写个自动化自动添加热度高的tag，但是目前大概就这样了，后续会开放自定义tag的功能
           ]
-R18 = 'R-18'
+R18 = ['R-18',
+       'R-18G']
+
+# 重试次数
+RETRY_TIME = 5
+
+# 错误码
+code = [404, 500, 503]
+
+# 即将使用
+fatal_error = [
+    '\\u30b9\\u30ab\\u30c8\\u30ed',  # スカトロ
+]
 
 
 def to_unicode(string):
@@ -107,6 +119,19 @@ def get_tags(data):
     return tag
 
 
+def get_data(url):
+    requests.packages.urllib3.disable_warnings()
+    for i in range(RETRY_TIME):
+        try:
+            res = requests.get(url, verify=False, timeout=(10, 30))
+            return res
+        except requests.exceptions.RequestException as e:
+            print(e)
+            print('获取网页数据失败...')
+            print(f'剩余重试次数{RETRY_TIME-i-1}')
+    return -1
+
+
 def dl(url, name, ref, path='./img/'):
     """
     下载图片
@@ -145,6 +170,7 @@ def dl(url, name, ref, path='./img/'):
 
 increase_num = 10000
 mark_file = './index.txt'
+
 
 def get_index():
     """

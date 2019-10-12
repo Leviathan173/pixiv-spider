@@ -13,31 +13,41 @@ def spider(index, r18, limit):
     3、如果是，下载，返回index+1
     如果不是 index+1，返回1
     """
-    RETRY_TIME = 5
+
     while True:
         # 获取
         url = f"https://www.pixiv.net/artworks/{index}"
         print(f'正在开始获取{url}的数据...')
 
-        try:
-            code = [404, 500, 503]
+        '''try:
             # 如果你的网络可以直接访问pixiv
             # 那么你将不需要下面的几行代码
             # 可以删除28行一行
             # 将29行中的verify=False去掉
             requests.packages.urllib3.disable_warnings()
             res = requests.get(url, verify=False, timeout=(10, 30))
+            res = get_data(url)
             if res.status_code in code:
                 print('页面不存在...')
                 index += 1
                 continue
             soup = BeautifulSoup(res.text, 'html.parser')
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             print(e)
             print('超时...')
             print('跳过，进入下一任务...')
             index += 1
+            continue'''
+        res = get_data(url)
+        if res == -1:
+            print(f'在重试了{RETRY_TIME}次之后依旧不能获取数据，跳过..')
+            index += 1
             continue
+        if res.status_code in code:
+            print('页面不存在...')
+            index += 1
+            continue
+        soup = BeautifulSoup(res.text, 'html.parser')
 
         # 处理数据，获取标签和点赞数
         tags = get_tags(soup.text)
@@ -50,11 +60,11 @@ def spider(index, r18, limit):
         # 判断是否R18
         r18_flag = False
         tag_flag = False
-        if R18 in tags:
-            # TODO R18G内容筛选
-            r18_flag = True
+        for r in R18:
+            if r in tags:
+                r18_flag = True
 
-        # 判断是否存在用户tag
+        # 判断是否存在tag
         for i in TAGLIB:
             if i in tags:
                 tag_flag = True
@@ -83,19 +93,24 @@ def spider(index, r18, limit):
                 continue
         else:
             if tag_flag:
-                print('发现符合，正在获取图片链接...')
-                img_url = get_img_url(soup.text)
-                for t in range(RETRY_TIME):
-                    if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
-                        print('下载完成...')
-                        index += 1
-                        write_index(index)
-                        return index
-                    else:
-                        print('下载出错，重试中...')
-                        continue
-                index += 1
-                return index
+                if r18_flag:
+                    print('存在R18，跳过')
+                    index += 1
+                    continue
+                else:
+                    print('发现符合，正在获取图片链接...')
+                    img_url = get_img_url(soup.text)
+                    for t in range(RETRY_TIME):
+                        if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
+                            print('下载完成...')
+                            index += 1
+                            write_index(index)
+                            return index
+                        else:
+                            print('下载出错，重试中...')
+                            continue
+                    index += 1
+                    return index
             else:
                 print('不存在所需标签，跳过...')
                 index += 1
