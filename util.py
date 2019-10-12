@@ -101,7 +101,7 @@ def get_img_url(data):
     :param data: 网页数据
     :return: str
     """
-    img = re.findall('\"regular\":\".*?\"', data)
+    img = re.findall('\"original\":\".*?\"', data)
     # print(img.split(':"')[1].split('"')[0].replace('\\', ''))
     return img[0].split(':"')[1].split('"')[0].replace('\\', '')
 
@@ -135,6 +135,7 @@ def get_data(url):
 def dl(url, name, ref, path='./img/'):
     """
     下载图片
+    :param ref: 请求头的referer参数，务必使用插画页面的url
     :param url: 图片地址
     :param name: 图片名字
     :param path: 本地存放路径
