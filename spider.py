@@ -29,7 +29,7 @@ def spider(index, r18, limit, ds):
             index += 1
             continue
         soup = BeautifulSoup(res.text, 'html.parser')
-
+        print('成功获得数据...')
         # 处理数据，获取标签和点赞数
         tags = get_tags(soup.text)
         iine = get_like_count(soup.text)
@@ -38,11 +38,25 @@ def spider(index, r18, limit, ds):
             index += 1
             continue
 
+        # 判断是否存在tag
+        tag_flag = False
+        print('判断是否存在所需tag...')
+        for i in TAGLIB:
+            if i in tags:
+                tag_flag = True
+        print(tag_flag)
+        if not tag_flag:
+            print('没有所需tag...跳过')
+            index += 1
+            continue
+
         # 判断是否不可名状
         ds_flag = False
         for r in fatal_error:
             if r in tags:
                 ds_flag = True
+        print('正在判断是否位不可名状...')
+        print(ds_flag)
         if ds == 0 and ds_flag:
             print("发现不可名状之物...")
             index += 1
@@ -63,17 +77,13 @@ def spider(index, r18, limit, ds):
                 else:
                     index += 1
                     continue
+        print('判断是否r18...')
         # 判断是否R18
         r18_flag = False
-        tag_flag = False
         for r in R18:
             if r in tags:
                 r18_flag = True
-
-        # 判断是否存在tag
-        for i in TAGLIB:
-            if i in tags:
-                tag_flag = True
+        print(r18_flag)
 
         # 判断是否符合要求
         if r18 == 1:
@@ -89,10 +99,10 @@ def spider(index, r18, limit, ds):
                             return index
                         else:
                             continue
-                else:
-                    print('存在R18但不存在所需标签，跳过...')
-                    index += 1
-                    continue
+                # else:
+                #     print('存在R18但不存在所需标签，跳过...')
+                #     index += 1
+                #     continue
             else:
                 print('不是R18，跳过...')
                 index += 1
@@ -117,22 +127,22 @@ def spider(index, r18, limit, ds):
                             continue
                     index += 1
                     return index
-            elif r18 == 3:
-                if tag_flag:
-                    print('发现符合，正在获取图片链接...')
-                    img_url = get_img_url(soup.text)
-                    for t in range(RETRY_TIME):
-                        if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
-                            print('下载完成...')
-                            index += 1
-                            write_index(index)
-                            return index
-                        else:
-                            print('下载出错，重试中...')
-                            continue
-                    index += 1
-                    return index
-            else:
-                print('不存在所需标签，跳过...')
+        elif r18 == 3:
+            if tag_flag:
+                print('发现符合，正在获取图片链接...')
+                img_url = get_img_url(soup.text)
+                for t in range(RETRY_TIME):
+                    if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
+                        print('下载完成...')
+                        index += 1
+                        write_index(index)
+                        return index
+                    else:
+                        print('下载出错，重试中...')
+                        continue
                 index += 1
-                continue
+                return index
+            # else:
+            #     print('不存在所需标签，跳过...')
+            #     index += 1
+            #     continue
