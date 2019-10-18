@@ -21,11 +21,11 @@ DEFAULT_LIMIT = 80
 
 args = parser.parse_args()
 print(args)
-if os.path.exists(mark_file):
-    index = int(get_index())
-elif args.index is not None:
+if args.index is not None:
     index = args.index
     create_index(index)
+elif os.path.exists(mark_file):
+    index = int(get_index())
 else:
     index = DEFAULT_INDEX
     create_index()
