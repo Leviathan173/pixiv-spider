@@ -61,6 +61,7 @@ def spider(index, r18, limit, ds):
                     write_index(index)
                     return index
                 else:
+                    index += 1
                     continue
         # 判断是否R18
         r18_flag = False
