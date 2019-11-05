@@ -1,8 +1,4 @@
 # encoding:utf-8
-import argparse
-import requests
-import os
-from bs4 import BeautifulSoup
 from util import *
 
 
@@ -28,11 +24,13 @@ def spider(index, r18, limit, ds):
             print('页面不存在...')
             index += 1
             continue
-        soup = BeautifulSoup(res.text, 'html.parser')
+        # 不再使用soup
+        # soup = BeautifulSoup(res.text, 'html.parser')
         print('成功获得数据...')
         # 处理数据，获取标签和点赞数
-        tags = get_tags(soup.text)
-        iine = get_like_count(soup.text)
+        data = res.text.encode('utf-8').decode('utf-8')
+        tags = get_tags(data)
+        iine = get_like_count(data)
         if iine < limit:
             print('点赞数不足要求，跳过...')
             index += 1
@@ -46,7 +44,7 @@ def spider(index, r18, limit, ds):
                 tag_flag = True
         print(tag_flag)
         if not tag_flag:
-            print('没有所需tag...跳过')
+            print('没有所需tag,跳过...')
             index += 1
             continue
 
@@ -67,9 +65,9 @@ def spider(index, r18, limit, ds):
             continue
         elif ds == 1 and ds_flag:
             print('发现符合，正在获取图片链接...')
-            img_url = get_img_url(soup.text)
+            img_url = get_img_url(data)
             for t in range(RETRY_TIME):
-                if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
+                if dl(img_url, hash_name(get_ill_name(data)), url) == 0:
                     print('下载完成...')
                     index += 1
                     write_index(index)
@@ -90,9 +88,9 @@ def spider(index, r18, limit, ds):
             if r18_flag:
                 if tag_flag:
                     print('发现符合，正在获取图片链接...')
-                    img_url = get_img_url(soup.text)
+                    img_url = get_img_url(data)
                     for t in range(RETRY_TIME):
-                        if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
+                        if dl(img_url, hash_name(get_ill_name(data)), url) == 0:
                             print('下载完成...')
                             index += 1
                             write_index(index)
@@ -115,9 +113,9 @@ def spider(index, r18, limit, ds):
                     continue
                 else:
                     print('发现符合，正在获取图片链接...')
-                    img_url = get_img_url(soup.text)
+                    img_url = get_img_url(data)
                     for t in range(RETRY_TIME):
-                        if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
+                        if dl(img_url, hash_name(get_ill_name(data)), url) == 0:
                             print('下载完成...')
                             index += 1
                             write_index(index)
@@ -130,9 +128,9 @@ def spider(index, r18, limit, ds):
         elif r18 == 3:
             if tag_flag:
                 print('发现符合，正在获取图片链接...')
-                img_url = get_img_url(soup.text)
+                img_url = get_img_url(data)
                 for t in range(RETRY_TIME):
-                    if dl(img_url, hash_name(get_ill_name(soup.text)), url) == 0:
+                    if dl(img_url, hash_name(get_ill_name(data)), url) == 0:
                         print('下载完成...')
                         index += 1
                         write_index(index)
